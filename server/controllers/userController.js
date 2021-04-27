@@ -15,15 +15,16 @@ async function validatePassword(plainPassword, hashedPassword) {
 
 exports.signup = async (req, res, next) => {
     try {
-     const { email, password, role } = req.body
+     const { email, password, role, name, phoneNumber} = req.body
      const hashedPassword = await hashPassword(password);
-     const newUser = new User({ email: email, password: hashedPassword, role: role || "basic" });
+     const newUser = new User({ email: email, password: hashedPassword, name:name,phoneNumber:phoneNumber,role: role || "basic" });
      const accessToken = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, {
       expiresIn: "1d"
      });
      newUser.accessToken = accessToken;
      await newUser.save();
      res.json({
+        ok: true,
       data: newUser,
       accessToken
      })
