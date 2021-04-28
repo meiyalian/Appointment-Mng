@@ -1,4 +1,6 @@
 let express = require('express');
+const bookingController = require('./controllers/bookingController');
+const serviceController = require('./controllers/serviceController');
 let router = express.Router();
 
 const userController = require('./controllers/userController');
@@ -14,4 +16,12 @@ router.post('/login', userController.login);
 
 router.get('/users', userController.allowIfLoggedin, userController.grantAccess('readAny', 'profile'), userController.getUsers);
 
+//booking request routers 
+router.post('/user/:id/booking',bookingController.addBookingRequest)
+
+//user can see their own booking request 
+router.get('/user/:id/allBooking',bookingController.userGetBookingList)
+
+//admin add services 
+router.post('/admin/addservice',serviceController.addService)
 module.exports = router;

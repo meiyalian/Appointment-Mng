@@ -1,8 +1,7 @@
 //user's biller information schema 
 const mongoose = require('mongoose');
 
-const UserSchema = new mongoose.Schema({
-    _id: mongoose.Schema.Types.ObjectId,
+const ServiceSchema = new mongoose.Schema({
    name: {
        type:String, 
        required:true
@@ -15,4 +14,4 @@ const UserSchema = new mongoose.Schema({
 })
 
 
-module.exports = mongoose.model('Service', UserSchema);
+module.exports = mongoose.model('Service', ServiceSchema);

@@ -1,7 +1,7 @@
 //user's biller information schema 
 const mongoose = require('mongoose');
 
-const UserSchema = new mongoose.Schema({
+const BillerSchema = new mongoose.Schema({
    name: {
        type:String, 
        required:true
@@ -14,4 +14,4 @@ const UserSchema = new mongoose.Schema({
 })
 
 
-module.exports = mongoose.model('Biller', UserSchema);
+module.exports = mongoose.model('Biller', BillerSchema);
