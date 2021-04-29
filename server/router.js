@@ -24,4 +24,8 @@ router.get('/user/:id/allBooking',bookingController.userGetBookingList)
 
 //admin add services 
 router.post('/admin/addservice',serviceController.addService)
+
+//get all services 
+router.get('/allServices',serviceController.getServices)
 module.exports = router;
+

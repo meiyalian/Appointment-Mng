@@ -33,7 +33,7 @@ module.exports = {
                     user.save(function(err){
                         if(err) return res.status(400).json(err);
                         else{
-                            return res.json('Booking added!')
+                            return res.json(newbooking)
                         }
                     })
                 }

@@ -6,11 +6,11 @@ const ServiceSchema = new mongoose.Schema({
        type:String, 
        required:true
    },
-   deliveryOptions:{
+   deliveryOptions:[{
     type: String,
     default: 'pickup',
     enum: ["pickup", "delivery"]
-}
+}]
 })
 
 
