@@ -3,19 +3,20 @@
 <form>
   <div>
     <label>Name</label>
-    <input type="text" id="customerName" [(ngModel)]="name">
+    <input type="text" id="customerName" [(ngModel)]="name" name="cn">
   </div>
   <div>
     <label>Phone Number</label>
-    <input type="text" id="customerPN" [(ngModel)]="phone">
+    <input type="text" id="customerPN" [(ngModel)]="phone" name="pn">
   </div>
   <div>
     <label>Email address</label>
-    <input type="text" id="customerEM" [(ngModel)]="email">
+    <input type="text" id="customerEM" [(ngModel)]="email" name="em">
   </div>
   <div>
     <label>Initial password</label>
-    <input type="text" id="customerPW" [(ngModel)]="password">
+    <input type="text" id="customerPW" [(ngModel)]="password" name="pw">
   </div>
+  <button type="submit" (click)="cRegister()">Register</button>
 
 </form>
