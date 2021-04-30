@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {DatabaseService} from "../database.service";
 
 @Component({
   selector: 'app-c-register',
@@ -10,16 +11,18 @@ export class CRegisterComponent implements OnInit {
   phone = 0;
   email = '';
   password = '';
+  role = "basic";
+  aT="";
 
 
-  constructor() { }
+  constructor(private dbService: DatabaseService) { }
 
   ngOnInit(): void {
   }
 
   cRegister(){
-    let obj={customerName: this.name, phoneNumber: this.phone, emailAd: this.email, password: this.password};
-
+    let user={email: this.email, role: this.role, password: this.password, name: this.name, phoneNumber: this.phone};
+    this.dbService.createUser(user).subscribe(result => console.log(result["accessToken"]));
   }
 
 }
