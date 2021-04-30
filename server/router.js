@@ -1,44 +1,31 @@
 let express = require('express');
+const bookingController = require('./controllers/bookingController');
+const serviceController = require('./controllers/serviceController');
 let router = express.Router();
-const User = require('./models/user');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 
+const userController = require('./controllers/userController');
 
-async function hashPassword(password) {
-    return await bcrypt.hash(password, 10);
-   }
-   
-// register user 
-router.post('/user/register',async(req,res) =>{
-
-    try{
-        const { email, password, role } = req.body;
-        const hashedPassword = await hashPassword(password);
-        const newUser = new User({ email: email, password: hashedPassword, role: role || "basic" });
-        const accessToken = await jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, {
-            expiresIn: "1d"
-        });
-        newUser.accessToken = accessToken;
-
-        
-        await newUser.save();
-        res.json({
-            data: newUser
-        })
-    } catch(e){
-        console.log(e)
-        res.status(500).json({
-            ok: false,
-            message: "fail to create",
-          })
-    }
-    
-})
 
 
 router.get('/api/test',(req,res) =>{
     res.send('ok')
 })
 
+router.post('/signup', userController.signup);
+router.post('/login', userController.login);
+
+router.get('/users', userController.allowIfLoggedin, userController.grantAccess('readAny', 'profile'), userController.getUsers);
+
+//booking request routers 
+router.post('/user/:id/booking',bookingController.addBookingRequest)
+
+//user can see their own booking request 
+router.get('/user/:id/allBooking',bookingController.userGetBookingList)
+
+//admin add services 
+router.post('/admin/addservice',serviceController.addService)
+
+//get all services 
+router.get('/allServices',serviceController.getServices)
 module.exports = router;
+
