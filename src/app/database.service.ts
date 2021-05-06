@@ -15,4 +15,8 @@ export class DatabaseService {
   createUser(user){
     return this.http.post("/signup", user);
   }
+
+  loginUser(user){
+    return this.http.post("/login",user);
+  }
 }
