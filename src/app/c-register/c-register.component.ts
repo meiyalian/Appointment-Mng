@@ -22,17 +22,16 @@ export class CRegisterComponent implements OnInit {
   }
 
   cRegister(){
-    // let user={email: this.email, role: this.role, password: this.password, name: this.name, phoneNumber: this.phone};
-    // this.dbService.createUser(user).subscribe(result => {
-    //   if (result["ok"]==true){
-    //     alert("success");
-    //     this.router.navigate(['/login']);
-    //   }
-    //   else {
-    //     alert("try again");
-    //   }
-    // });
-    this.router.navigate(['/login']);
+    let user={email: this.email, role: this.role, password: this.password, name: this.name, phoneNumber: this.phone};
+    this.dbService.createUser(user).subscribe(result => {
+      if (result["ok"]==true){
+        alert("success");
+        this.router.navigate(['/login']);
+      }
+      else {
+        alert("try again");
+      }
+    });
   }
 
 }
