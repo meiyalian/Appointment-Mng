@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 async function hashPassword(password) {
     return await bcrypt.hash(password, 10);
    }
-
+   
 async function validatePassword(plainPassword, hashedPassword) {
     return await bcrypt.compare(plainPassword, hashedPassword);
 }
@@ -23,7 +23,7 @@ exports.signup = async (req, res, next) => {
      const accessToken = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, {
       expiresIn: "1d"
      });
-     newUser.aT = accessToken;
+     newUser.accessToken = accessToken;
      await newUser.save();
      res.json({
         ok: true,

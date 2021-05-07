@@ -43,11 +43,6 @@ router.post('/user/:id/updateBillerInfo',userController.allowIfLoggedin, userCon
 router.post('/admin/addservice',serviceController.addService)
 
 //get all services 
-router.get('/allServices',userController.allowIfLoggedin,serviceController.getServices)
-
-
-//get service delivery options (return an array of delivery options (delivery/pickup))
-router.get('/getServiceDeliveryOptions/:id',userController.allowIfLoggedin,serviceController.getServicesDeliveryOptions)
-
-
+router.get('/allServices',serviceController.getServices)
 module.exports = router;
+
