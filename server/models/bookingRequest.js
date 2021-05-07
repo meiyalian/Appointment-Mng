@@ -23,6 +23,10 @@ const BookingSchema = new mongoose.Schema({
     ref: 'Service',
     required:true
 },
+deliveryOption:{
+    type:String,
+    required:true
+},
 optionalMessage:{
     type:String
 }
