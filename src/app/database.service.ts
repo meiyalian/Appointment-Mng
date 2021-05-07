@@ -19,4 +19,12 @@ export class DatabaseService {
   loginUser(user){
     return this.http.post("/login",user);
   }
+
+  book(request){
+    return this.http.post("/user/"+request.id+"/booking",request);//TODO
+  }
+
+  getBooking(id:string){
+    return this.http.get("/user/"+id+"/allBooking");
+  }
 }

@@ -8,6 +8,7 @@
 
 
 <body>
+<router-outlet></router-outlet>
 <main class="form-signin">
 
   <h2 class="text-center">Login</h2>
@@ -25,7 +26,7 @@
     <input type="text" class="form-control" id="customerPN"  [(ngModel)]="password" name="pn" placeholder="Phone Number">
   </div>
 
-  <button class="w-100 btn btn-lg btn-primary center-block" type="submit" (click)="login()">Register</button>
+  <button class="w-100 btn btn-lg btn-primary center-block" type="submit" (click)="login()">Login</button>
 
 </main>
 </body>
