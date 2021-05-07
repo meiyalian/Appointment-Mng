@@ -20,15 +20,16 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
-    let user={email:this.email, password:this.password};
-    this.dbService.loginUser(user).subscribe(result =>{
-      if (result["message"]=="ok"){
-        alert("success")
-      }
-      else {
-        alert("error")
-      }
-    });
+    // let user={email:this.email, password:this.password};
+    // this.dbService.loginUser(user).subscribe(result =>{
+    //   if (result["message"]=="ok"){
+    //     alert("success")
+    //   }
+    //   else {
+    //     alert("error")
+    //   }
+    // });
+    this.router.navigate(['/voucher']);
   }
 
 }
