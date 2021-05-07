@@ -24,7 +24,8 @@ module.exports = {
                 user: user._id,
                 date: newDate,
                 serviceType: req.body.serviceType,
-                optionalMessage:req.body.optionalMessage
+                optionalMessage:req.body.optionalMessage,
+                deliveryOption: req.body.deliveryOption
             })
             user.bookingRequest.push(newbooking);
             newbooking.save(function(err){

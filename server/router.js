@@ -45,7 +45,8 @@ router.post('/admin/addservice',serviceController.addService)
 //get all services 
 router.get('/allServices',userController.allowIfLoggedin,serviceController.getServices)
 
-
+//get one service 
+router.get('/oneService/:id',userController.allowIfLoggedin,serviceController.getOneService);
 //get service delivery options (return an array of delivery options (delivery/pickup))
 router.get('/getServiceDeliveryOptions/:id',userController.allowIfLoggedin,serviceController.getServicesDeliveryOptions)
 

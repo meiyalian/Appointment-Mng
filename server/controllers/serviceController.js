@@ -27,5 +27,13 @@ module.exports={
            result=service[0]["deliveryOptions"]
            res.send({ok:true,data:result})
         })
-    }
+    },
+
+    //get one Service 
+    getOneService: function (req,res){
+        Service.find({_id:req.params.id},function(err,service){
+            if(err) return res.status(400).json({ok:false,err:err});
+            res.json({ok:true,data:service});
+        })
+    },
 }
