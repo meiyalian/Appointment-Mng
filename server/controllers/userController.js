@@ -126,7 +126,11 @@ exports.viewDetailInfo = (req,res)=>{
                     role: user.role , 
                     name: user.name, 
                     id: user._id,
-                    phoneNumber:phoneNumber
+                    phoneNumber:user.phoneNumber,
+                    biller: {
+                        name: user.biller.name, 
+                        email:user.biller.email }
+
                 }
         })
     })
@@ -221,7 +225,6 @@ exports.updateBillerInfo = async (req,res)=>{
                 
             });
         
-            // newBiller._id = new mongoose.Types.ObjectId();
         }
 
         else{
