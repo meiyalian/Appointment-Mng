@@ -13,6 +13,8 @@ export class LoginComponent implements OnInit {
   password = '';
   role = '';
   aT= '';
+  userId='';
+  name='';
 
   constructor(private dbService: DatabaseService, private router:Router) { }
 
@@ -20,16 +22,23 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
-    // let user={email:this.email, password:this.password};
-    // this.dbService.loginUser(user).subscribe(result =>{
-    //   if (result["message"]=="ok"){
-    //     alert("success")
-    //   }
-    //   else {
-    //     alert("error")
-    //   }
-    // });
-    this.router.navigate(['/voucher']);
+    let user={email:this.email, password:this.password};
+    this.dbService.loginUser(user).subscribe(result =>{
+      if (result["ok"]==true){
+        this.userId=result['data']['id'];
+        this.role=result['data']['role'];
+        this.name=result['data']['name'];
+        this.aT=result['accessToken'];
+        alert("success")
+        this.router.navigate(['/voucher'],{queryParams: {
+            id: this.userId, role:this.role, name:this.name, at:this.aT
+          }});
+      }
+      else {
+        alert("error")
+      }
+    });
+
   }
 
 }
