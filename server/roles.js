@@ -10,6 +10,7 @@ ac.grant("admin")
  .extend("basic")
  .readAny("profile")
  .updateAny("profile")
+ .updateAny("service")
  .deleteAny("profile")
 
 return ac;
