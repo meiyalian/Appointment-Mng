@@ -27,5 +27,10 @@ router.post('/admin/addservice',serviceController.addService)
 
 //get all services 
 router.get('/allServices',serviceController.getServices)
-module.exports = router;
 
+
+//get service delivery options (return an array of delivery options (delivery/pickup))
+router.get('/getServiceDeliveryOptions/:id',serviceController.getServicesDeliveryOptions)
+
+
+module.exports = router;
