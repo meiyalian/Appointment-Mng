@@ -2,6 +2,8 @@ const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { roles } = require('../roles')
+const Biller = require('../models/biller');
+const mongoose = require('mongoose');
 
 
 async function hashPassword(password) {
@@ -32,7 +34,7 @@ exports.signup = async (req, res, next) => {
         console.log(error)
         res.status(500).json({
             ok: false,
-            message: "fail to create",
+            error: "fail to create",
           })
     }
 }
@@ -68,8 +70,8 @@ exports.login = async (req, res, next) => {
         });
         await User.findByIdAndUpdate(user._id, { accessToken })
         res.status(200).json({
-        message: "ok",
-        data: { email: user.email, role: user.role },
+        ok: true,
+        data: { email: user.email, role: user.role , name: user.name, id: user._id},
         accessToken
         })
     } catch (error) {
@@ -106,3 +108,147 @@ exports.allowIfLoggedin = async (req, res, next) => {
       next(error);
      }
 }
+
+
+exports.viewDetailInfo = (req,res)=>{
+    User.findOne({_id:req.params.id}).populate('biller').exec((err,user)=>{
+        if(err) return res.status(400).json({
+            ok:false,
+            error: err
+        });
+        if(!user) return res.status(404).json({
+            ok:false,
+            error: "no user find"
+        });
+        res.json({
+            ok: true,
+            data: { email: user.email,
+                    role: user.role , 
+                    name: user.name, 
+                    id: user._id,
+                    phoneNumber:user.phoneNumber,
+                    biller: {
+                        name: user.biller.name, 
+                        email:user.biller.email }
+
+                }
+        })
+    })
+}
+
+exports.updateDetailInfo = (req,res)=>{
+    User.findOne({_id:req.params.id}).populate('biller').exec((err,user)=>{
+        if(err) return res.status(400).json({
+            ok:false,
+            error: err
+        });
+        if(!user) return res.status(404).json({
+            ok:false,
+            error: "no user find"
+        });
+        res.json({
+            ok: true,
+            data: { email: user.email,
+                role: user.role , 
+                name: user.name, 
+                id: user._id,
+                phoneNumber:phoneNumber
+            }
+        })
+    })
+}
+
+exports.updatePersonalInfo = (req,res)=>{
+
+    User.findOneAndUpdate({ _id: req.params.id }, req.body, function (err, user) {
+        if (err) return res.status(400).json({
+            ok:false,
+            error: err
+        });
+        if (!user) return res.status(404).json({
+            ok:false,
+            error: "no user find"
+        });
+        res.json({
+            ok: true,
+            data: { email: req.body.email || user.email,
+                role: user.role , 
+                name: req.body.name ||user.name, 
+                id: user._id,
+                phoneNumber:req.body.phoneNumber ||user.phoneNumber
+            }
+        });
+    
+    })
+}
+
+exports.updateBillerInfo = async (req,res)=>{
+
+    
+
+    const userID = mongoose.Types.ObjectId(req.params.id)
+    
+    Biller.findOneAndUpdate({ belongsTo:userID }, req.body , function (err, biller) {
+        if (err) return res.status(400).json({
+            ok:false,
+            error: err
+        });
+
+        if(!biller){
+            req.body.belongsTo = userID; 
+            Biller.create(req.body, function (err, biller) {
+                if (err) return res.status(400).json({
+                    ok:false,
+                    error: err
+                });
+
+                User.findOneAndUpdate({ _id: req.params.id }, {biller: biller._id}, function (err, user) {
+                    if (err) return res.status(400).json({
+                        ok:false,
+                        error: err
+                    });
+                    if (!user) return res.status(404).json({
+                        ok:false,
+                        error: "no user find"
+                    });
+        
+                    res.status(200).json({
+                        ok: true,
+                        data: {
+                            name: req.body.name,
+                            email: req.body.email    
+        
+                        }
+                    });
+                
+                });
+                
+            });
+        
+        }
+
+        else{
+            res.status(200).json({
+                ok: true,
+                data: {
+                    name: req.body.name || biller.name,
+                    email: req.body.email || biller.email    
+    
+                }
+            });
+
+
+        };
+
+      
+
+})
+
+        
+        
+    
+
+    
+}
+
+
