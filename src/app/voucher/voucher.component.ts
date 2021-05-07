@@ -8,16 +8,26 @@ import { Component, OnInit } from '@angular/core';
 
 export class VoucherComponent implements OnInit {
 
-  serviceTypes: any[]=[];
+  serviceTypes = [
+    {value:'flowers'},
+    {value:'chocolatebox'},
+  ];
+  deliverOptions = ['delivery to the MYD offices', 'pick-up from the service'];
+  selectedService: string;
+  selectedDeliver: string;
+  date:string;
+  section = 1;
+  optionMessage:string;
+
+  requestList: any[] = [ {service:'flowers'}, {service:'chocolatebox'}];
 
   constructor() { }
 
   ngOnInit(): void {
-    this.serviceTypes = [
-      {'value':'flowers', 'name': 'flowers'},
-      {'value':'chocolatebox', 'name': 'chocolatebox'},
-      {'value':'chocolatebox', 'name': 'teaparty'}
-    ];
+  }
+
+  changeSection(sectionId) {
+    this.section = sectionId;
   }
 
 
