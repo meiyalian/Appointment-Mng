@@ -21,10 +21,10 @@
 
   <div class="form-group">
     <label>Phone Number</label>
-    <input type="number" [(ngModel)]="phoneNumber">
+    <input type="text" [(ngModel)]="phoneNumber">
   </div>
 
-  <button type="submit" class="btn btn-primary">Save</button>
+  <button type="submit" class="btn btn-primary" (click)="changeProfile()">Save</button>
 </div>
 
 <div class="section" *ngIf="section==2">
@@ -38,5 +38,5 @@
     <input type="text" [(ngModel)]="bEmail">
   </div>
 
-  <button type="submit" class="btn btn-primary">Save</button>
+  <button type="submit" class="btn btn-primary" (click)="changBiller()">Save</button>
 </div>
