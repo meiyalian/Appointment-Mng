@@ -1,0 +1,21 @@
+<div>
+    <h1>
+      Welcome to this board -- {{title}}
+    </h1>
+  </div>
+  
+  <br>
+  <div>
+    Username <input name="username" [(ngModel)]="username" />
+  </div>
+  <div>
+    Password <input name="password" [(ngModel)]="password" />
+  </div>
+  <div>
+    So this is your message
+  </div>
+  <br>
+  
+  <button (click)="LogIn" class="btn btn-primary">Log In</button>
+  
+  <hr>

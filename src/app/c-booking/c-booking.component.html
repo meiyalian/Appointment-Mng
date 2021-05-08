@@ -1,0 +1,41 @@
+<p>booking works!</p>
+<div>
+    Username is
+</div>
+<hr>
+
+<div>
+    Now this part is booking part
+</div>
+<br>
+Select your Items:
+<div>
+
+</div>
+
+<button (click)="Add_flower()">flower</button>
+<button (click)="Add_chocolatebox()">chocolatebox</button>
+<button (click)="Add_teaparty()">teaparty</button>
+<button (click)="Add_coffees10()">coffees10</button>
+<button (click)="Add_breakfast()">breakfast</button>
+<button (click)="Add_lunch()">lunch</button>
+<button (click)="Add_meatmeal()">meatmeal</button>
+<button (click)="Add_vegmeal()">vegmeal</button>
+<button (click)="Add_bakerygoods()">bakerygoods</button>
+<button (click)="Add_hairstyle()">hairstyle</button>
+
+
+<table>
+    <tr>
+        <th>
+            This is the bookling List
+        </th>
+    </tr>
+    <tr *ngFor="let item of booklist">
+        <td>{{item}}</td>
+    </tr>
+</table>
+
+<button (click)="Booking()">Book</button>
+<button (click)="ClearItem()">Clear List</button>
+<br>
