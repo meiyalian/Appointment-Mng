@@ -4,6 +4,7 @@ const serviceController = require('./controllers/serviceController');
 let router = express.Router();
 
 const userController = require('./controllers/userController');
+const bookingRequest = require('./models/bookingRequest');
 
 
 
@@ -41,6 +42,12 @@ router.post('/user/:id/updateBillerInfo',userController.allowIfLoggedin, userCon
 
 //admin add services 
 router.post('/admin/addservice',serviceController.addService)
+
+//admin view booking request 
+router.get('/admin/viewBookingRequest',bookingController.adminViewBookingRequest)
+
+//admin accept booking request 
+router.post('/admin/acceptBooking',bookingController.adminAcceptBookingRequest)
 
 //get all services 
 router.get('/allServices',userController.allowIfLoggedin,serviceController.getServices)
