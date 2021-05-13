@@ -25,6 +25,10 @@ deliveryOption:{
 },
 optionalMessage:{
     type:String
+},
+confirmation:{
+    type: Boolean,
+    default:false
 }
 
 

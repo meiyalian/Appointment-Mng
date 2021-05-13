@@ -41,5 +41,22 @@ module.exports = {
                 }
             })
         })
+    },
+
+    //admin view booking request 
+    adminViewBookingRequest: function (req,res){
+        BookingRequest.find({'confirmation':false}).populate('user').exec (function(err,bookingRequest){
+            if(err) return res.status(400).json({ok:false,err:err});
+            res.json({ok:true,data:{bookingRequest}});
+        })
+    },
+
+    //adminAcceptBookingRequest and update the confirmation to be true
+
+    adminAcceptBookingRequest: function (req,res){
+        BookingRequest.update({'confirmation':false},{$set:{'confirmation':true}},function(err,bookingRequest){
+            if(err) return res.status(400).json({ok:false,err:err});
+            res.json({ok:true,data:{bookingRequest}});
+        })
     }
 }
