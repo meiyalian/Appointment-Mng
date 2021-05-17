@@ -8,10 +8,12 @@ ac.grant("basic")
 
 ac.grant("admin")
  .extend("basic")
- .readAny("profile")
- .updateAny("profile")
  .updateAny("service")
+ .createAny("service")
  .deleteAny("profile")
+ .readAny("booking")
+ .updateAny("booking")
+
 
 return ac;
 })();
