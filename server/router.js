@@ -50,6 +50,6 @@ router.get('/oneService/:id',userController.allowIfLoggedin,serviceController.ge
 //get service delivery options (return an array of delivery options (delivery/pickup))
 router.get('/getServiceDeliveryOptions/:id',userController.allowIfLoggedin,serviceController.getServicesDeliveryOptions)
 
-
+//customer cancel booking request 
 router.post('/removeRequest/:id/:bookingid',userController.allowIfLoggedin,bookingController.removeBookingRequest)
 module.exports = router;

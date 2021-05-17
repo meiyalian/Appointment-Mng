@@ -43,27 +43,27 @@ module.exports = {
     },
 
         //Customer remove booking request 
-    removeBookingRequest: function(req,res){
+    removeBookingRequest: async function(req,res){
 
 
-        BookingRequest.findOneAndRemove({ _id: req.params.bookingid }), (err, booking)=>{
-            if(err) return res.status(400).json(err);
+        
+        User.findOneAndUpdate({_id: req.params.id}, {$pull: {bookingRequest: req.params.bookingid}},  {
+            new: true
+            }).populate({path: 'bookingRequest', model: 'BookingRequest'}).exec(async (err, usr)=>{
+                if(err) return res.status(400).json(err);
+                else{
+                    await BookingRequest.findOneAndRemove({ _id: req.params.bookingid }, (err, booking)=>{
+                             if(err) return res.status(400).json(err);
+                    })
+                    return res.json({ok: true,
+                        data: usr})
 
-            User.findOneAndUpdate({_id: req.params.id}, {$pull: {bookingRequest: req.params.bookingid}},  {
-                new: true
-                }).populate({path: 'bookingRequest',select: '_id' , model: 'BookingRequest'}).exec((err, usr)=>{
-                    if(err) return res.status(400).json(err);
-                    else{
-                        return res.json({ok: true,
-                            data: usr})
                     }
-
+        
                 })
 
             
-        }
-    
-
+               
     },
             // User.findOne({_id:req.params.id},function(err,user){
 
