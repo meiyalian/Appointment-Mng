@@ -136,27 +136,6 @@ exports.viewDetailInfo = (req,res)=>{
     })
 }
 
-exports.updateDetailInfo = (req,res)=>{
-    User.findOne({_id:req.params.id}).populate('biller').exec((err,user)=>{
-        if(err) return res.status(400).json({
-            ok:false,
-            error: err
-        });
-        if(!user) return res.status(404).json({
-            ok:false,
-            error: "no user find"
-        });
-        res.json({
-            ok: true,
-            data: { email: user.email,
-                role: user.role , 
-                name: user.name, 
-                id: user._id,
-                phoneNumber:phoneNumber
-            }
-        })
-    })
-}
 
 exports.updatePersonalInfo = (req,res)=>{
 
