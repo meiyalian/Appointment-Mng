@@ -41,13 +41,13 @@ router.post('/user/:id/updateBillerInfo',userController.allowIfLoggedin, userCon
 
 
 //admin add services 
-router.post('/admin/addservice',serviceController.addService)
+router.post('/admin/addservice',userController.grantAccess('createAny', 'service'), serviceController.addService)
 
 //admin view booking request 
-router.get('/admin/viewBookingRequest',bookingController.adminViewBookingRequest)
+router.get('/admin/viewBookingRequest',userController.grantAccess('readAny', 'booking'), bookingController.adminViewBookingRequest)
 
 //admin accept booking request 
-router.post('/admin/acceptBooking',bookingController.adminAcceptBookingRequest)
+router.post('/admin/acceptBooking',userController.grantAccess('updateAny', 'booking'), bookingController.adminAcceptBookingRequest)
 
 //get all services 
 router.get('/allServices',userController.allowIfLoggedin,serviceController.getServices)

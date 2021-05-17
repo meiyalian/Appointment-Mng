@@ -244,10 +244,6 @@ exports.updateBillerInfo = async (req,res)=>{
 
 })
 
-        
-        
-    
-
     
 }
 
