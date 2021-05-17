@@ -43,6 +43,45 @@ module.exports = {
         })
     },
 
+        //Customer remove booking request 
+    removeBookingRequest: function(req,res){
+
+
+        BookingRequest.findOneAndRemove({ _id: req.params.bookingid }).populate('bookingRequest'). exec((err, booking)=>{
+            if(err) return res.status(400).json(err);
+
+            User.findOneAndUpdate({_id: req.params.id}, {$pull: {bookingRequest: {_id: req.params.bookingid }}},  {
+                new: true
+                }, (err, user)=>{
+                if (err) return res.status(400).json({ok:false, err: err});
+                
+                res.json({
+                    ok:true,
+                    data: user.bookingRequest
+                })
+
+
+            })
+
+            
+        })
+    
+
+    },
+            // User.findOne({_id:req.params.id},function(err,user){
+
+            //     requests = user.bookingRequest
+            //     bookingid = req.params.bookingid
+                
+            //     for(let i = 0; i < requests.length ; i ++ ){
+            //         if (requests[i] == bookingid) requests.splice(i,1)
+            //     }
+
+
+       
+            // })
+        
+
     //admin view booking request 
     adminViewBookingRequest: function (req,res){
         BookingRequest.find({'confirmation':false}).populate('user').exec (function(err,bookingRequest){

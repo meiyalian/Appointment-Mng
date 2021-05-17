@@ -33,13 +33,6 @@ router.post('/user/:id/updateBillerInfo',userController.allowIfLoggedin, userCon
 
 
 
-
-
-
-
-
-
-
 //admin add services 
 router.post('/admin/addservice',userController.grantAccess('createAny', 'service'), serviceController.addService)
 
@@ -58,4 +51,5 @@ router.get('/oneService/:id',userController.allowIfLoggedin,serviceController.ge
 router.get('/getServiceDeliveryOptions/:id',userController.allowIfLoggedin,serviceController.getServicesDeliveryOptions)
 
 
+router.post('/removeRequest/:id/:bookingid',userController.allowIfLoggedin,bookingController.removeBookingRequest)
 module.exports = router;
