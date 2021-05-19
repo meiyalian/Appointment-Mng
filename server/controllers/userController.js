@@ -82,6 +82,7 @@ exports.login = async (req, res, next) => {
 exports.grantAccess = function(action, resource) {
     return async (req, res, next) => {
      try {
+         console.log(req.user)
       const permission = roles.can(req.user.role)[action](resource);
       if (!permission.granted) {
        return res.status(401).json({

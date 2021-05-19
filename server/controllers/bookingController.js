@@ -89,8 +89,9 @@ module.exports = {
 
     //adminAcceptBookingRequest and update the confirmation to be true
 
-    adminAcceptBookingRequest: function (req,res){
-        BookingRequest.update({'confirmation':false},{$set:{'confirmation':true}},function(err,bookingRequest){
+    adminAcceptBookingRequest: async function (req,res){
+      await BookingRequest.findOneAndUpdate({_id: req.params.id,confirmation:false},{$set:{confirmation:true}},{new:true},function(err,bookingRequest){
+            if(bookingRequest==null) return res.status(500).json({ok:false,err:"bad request"})
             if(err) return res.status(400).json({ok:false,err:err});
             res.json({ok:true,data:{bookingRequest}});
         })
