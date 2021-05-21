@@ -20,7 +20,7 @@ exports.signup = async (req, res, next) => {
      const { email, password, role, name, phoneNumber} = req.body
      const hashedPassword = await hashPassword(password);
      const newUser = new User({ email: email, password: hashedPassword, name:name,phoneNumber:phoneNumber,role: role || "basic" });
-     const accessToken = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, {
+     const accessToken = jwt.sign({ userId: newUser._id },""+process.env.JWT_SECRET, {
       expiresIn: "1d"
      });
      newUser.aT = accessToken;
@@ -65,7 +65,7 @@ exports.login = async (req, res, next) => {
         if (!user) return next(new Error('Email does not exist'));
         const validPassword = await validatePassword(password, user.password);
         if (!validPassword) return next(new Error('Password is not correct'))
-        const accessToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+        const accessToken = jwt.sign({ userId: user._id }, ""+process.env.JWT_SECRET, {
         expiresIn: "1d"
         });
         await User.findByIdAndUpdate(user._id, { accessToken })
@@ -124,12 +124,12 @@ exports.viewDetailInfo = (req,res)=>{
         res.json({
             ok: true,
             data: { email: user.email,
-                    role: user.role , 
-                    name: user.name, 
+                    role: user.role ,
+                    name: user.name,
                     id: user._id,
                     phoneNumber:user.phoneNumber,
                     biller: {
-                        name: user.biller.name, 
+                        name: user.biller.name,
                         email:user.biller.email }
 
                 }
@@ -137,6 +137,27 @@ exports.viewDetailInfo = (req,res)=>{
     })
 }
 
+exports.updateDetailInfo = (req,res)=>{
+    User.findOne({_id:req.params.id}).populate('biller').exec((err,user)=>{
+        if(err) return res.status(400).json({
+            ok:false,
+            error: err
+        });
+        if(!user) return res.status(404).json({
+            ok:false,
+            error: "no user find"
+        });
+        res.json({
+            ok: true,
+            data: { email: user.email,
+                role: user.role ,
+                name: user.name,
+                id: user._id,
+                phoneNumber:phoneNumber
+            }
+        })
+    })
+}
 
 exports.updatePersonalInfo = (req,res)=>{
 
@@ -152,22 +173,22 @@ exports.updatePersonalInfo = (req,res)=>{
         res.json({
             ok: true,
             data: { email: req.body.email || user.email,
-                role: user.role , 
-                name: req.body.name ||user.name, 
+                role: user.role ,
+                name: req.body.name ||user.name,
                 id: user._id,
                 phoneNumber:req.body.phoneNumber ||user.phoneNumber
             }
         });
-    
+
     })
 }
 
 exports.updateBillerInfo = async (req,res)=>{
 
-    
+
 
     const userID = mongoose.Types.ObjectId(req.params.id)
-    
+
     Biller.findOneAndUpdate({ belongsTo:userID }, req.body , function (err, biller) {
         if (err) return res.status(400).json({
             ok:false,
@@ -175,7 +196,7 @@ exports.updateBillerInfo = async (req,res)=>{
         });
 
         if(!biller){
-            req.body.belongsTo = userID; 
+            req.body.belongsTo = userID;
             Biller.create(req.body, function (err, biller) {
                 if (err) return res.status(400).json({
                     ok:false,
@@ -191,20 +212,20 @@ exports.updateBillerInfo = async (req,res)=>{
                         ok:false,
                         error: "no user find"
                     });
-        
+
                     res.status(200).json({
                         ok: true,
                         data: {
                             name: req.body.name,
-                            email: req.body.email    
-        
+                            email: req.body.email
+
                         }
                     });
-                
+
                 });
-                
+
             });
-        
+
         }
 
         else{
@@ -212,19 +233,19 @@ exports.updateBillerInfo = async (req,res)=>{
                 ok: true,
                 data: {
                     name: req.body.name || biller.name,
-                    email: req.body.email || biller.email    
-    
+                    email: req.body.email || biller.email
+
                 }
             });
 
 
         };
 
-      
+
 
 })
 
-    
+
 }
 
 
