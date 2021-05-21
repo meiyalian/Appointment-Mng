@@ -53,4 +53,14 @@ export class DatabaseService {
     httpOptions.headers=httpOptions.headers.set("x-access-token",this.ac);
     return this.http.get("/admin/viewBookingRequest",httpOptions);
   }
+
+  cancelRequest(userID:string, requestID:string, ac:string){
+    httpOptions.headers=httpOptions.headers.set("x-access-token",ac);
+    return this.http.post("/removeRequest/"+userID+"/"+requestID,"",httpOptions);
+  }
+
+  acceptRequest(requestID){
+    httpOptions.headers=httpOptions.headers.set("x-access-token",this.ac);
+    return this.http.post("/admin/acceptBooking/"+requestID,"",httpOptions);
+  }
 }

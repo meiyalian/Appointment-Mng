@@ -100,9 +100,10 @@ export class VoucherComponent implements OnInit {
     }
   }
 
-
-
-
-
+  cancelBooking(requestID){
+    this.dbService.cancelRequest(this.userID,requestID,this.ac).subscribe(result => {
+      console.log(result);
+    })
+  }
 
 }
