@@ -58,7 +58,7 @@
         <td>{{item.serviceType}}</td>
         <td>{{item.date}}</td>
         <td>{{item.deliveryOption}}
-          <input type="button" value="cancel"> </td>
+          <input type="button" value="cancel" (click)="cancelBooking(item._id)"> </td>
       </tr>
     </table>
 
@@ -118,7 +118,7 @@
         <td>{{item.user.name}}</td>
         <td>{{item.user.phoneNumber}}</td>
         <td>{{item.user.email}}
-          <input type="button" value="accept"></td>
+          <input type="button" value="accept" (click)="admin.acceptRequest(item._id)"></td>
       </tr>
     </table>
 
