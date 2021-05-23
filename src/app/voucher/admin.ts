@@ -63,6 +63,7 @@ export class Admin {
   acceptRequest(requestID){
     this.dbService.acceptRequest(requestID).subscribe(result => {
       console.log(result)
+      this.getRequests();
     })
   }
 }
