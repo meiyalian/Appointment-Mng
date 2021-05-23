@@ -18,6 +18,7 @@ export class VoucherComponent implements OnInit {
   selectedService: {};
   selectedDeliver: string;
   date:string;
+  time:string;
   section = 1;
   optionMessage:string;
   ac:string;
@@ -65,7 +66,7 @@ export class VoucherComponent implements OnInit {
   }
 
   book(){
-    let request={serviceType:this.selectedService['_id'], date:"2021-07-08 10:00", optionalMessage:this.optionMessage, deliveryOption:this.selectedDeliver};
+    let request={serviceType:this.selectedService['_id'], date:this.date+" "+this.time, optionalMessage:this.optionMessage, deliveryOption:this.selectedDeliver};
     this.dbService.book(this.userID,request).subscribe(result => {
       console.log(result);
     })
@@ -103,6 +104,7 @@ export class VoucherComponent implements OnInit {
   cancelBooking(requestID){
     this.dbService.cancelRequest(this.userID,requestID,this.ac).subscribe(result => {
       console.log(result);
+      this.getBooking();
     })
   }
 
