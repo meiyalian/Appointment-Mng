@@ -90,9 +90,14 @@
 
     <div class="form-group">
       <label>Delivery Options</label>
-      <select [(ngModel)]="admin.selectedDelivery">
-        <option *ngFor="let item of admin.defaultDelivery">{{item}}</option>
-      </select>
+<!--      <select [(ngModel)]="admin.selectedDelivery">-->
+<!--        <option *ngFor="let item of admin.defaultDelivery">{{item}}</option>-->
+<!--      </select>-->
+      <div *ngFor="let item of admin.defaultDelivery">
+        <label>
+          <input type="checkbox" [(ngModel)]="item.selected"> {{item.option}}
+        </label>
+      </div>
     </div>
 
     <button type="submit" class="btn btn-primary" (click)="admin.addService()">Add</button>
