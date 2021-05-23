@@ -7,15 +7,11 @@ const BookingSchema = new mongoose.Schema({
         ref:"User"
     },
    date: {
-       type:Date, 
-        // default:Date.now,
-       default: moment.utc(),
-       validate: function(input){
-        moment(input).isAfter(moment.utc());
-       },
-       get:function(newDate){
-           return moment(newDate).format('DD-MM-YYYY');
-       },
+       type:Date,
+       min: Date.now,
+    //    set:function(newDate){
+    //        return moment(newDate).tz('Australia/Melbourne').format('YYYY-MM-DD h:mm:ss');
+    //    },
        required:true
    },
    serviceType: {
