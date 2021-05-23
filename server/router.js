@@ -4,6 +4,7 @@ const serviceController = require('./controllers/serviceController');
 let router = express.Router();
 
 const userController = require('./controllers/userController');
+const bookingRequest = require('./models/bookingRequest');
 
 
 
@@ -14,7 +15,7 @@ router.get('/api/test',(req,res) =>{
 router.post('/signup', userController.signup);
 router.post('/login', userController.login);
 
-router.get('/users', userController.allowIfLoggedin, userController.grantAccess('readAny', 'profile'), userController.getUsers);
+router.get('/users', userController.allowIfLoggedin, userController.grantAccess('readAny', 'booking'), userController.getUsers);
 
 //booking request routers 
 router.post('/user/:id/booking',userController.allowIfLoggedin,bookingController.addBookingRequest)
@@ -32,17 +33,23 @@ router.post('/user/:id/updateBillerInfo',userController.allowIfLoggedin, userCon
 
 
 
-
-
-
-
-
-
-
 //admin add services 
-router.post('/admin/addservice',serviceController.addService)
+router.post('/admin/addservice', userController.allowIfLoggedin, userController.grantAccess('createAny', 'service'), serviceController.addService)
+
+//admin view booking request 
+router.get('/admin/viewBookingRequest',userController.allowIfLoggedin, userController.grantAccess('readAny', 'booking'), bookingController.adminViewBookingRequest)
+
+//admin accept booking request 
+router.post('/admin/acceptBooking/:id',userController.allowIfLoggedin,userController.grantAccess('updateAny', 'booking'), bookingController.adminAcceptBookingRequest)
 
 //get all services 
-router.get('/allServices',serviceController.getServices)
-module.exports = router;
+router.get('/allServices',userController.allowIfLoggedin,serviceController.getServices)
 
+//get one service 
+router.get('/oneService/:id',userController.allowIfLoggedin,serviceController.getOneService);
+//get service delivery options (return an array of delivery options (delivery/pickup))
+router.get('/getServiceDeliveryOptions/:id',userController.allowIfLoggedin,serviceController.getServicesDeliveryOptions)
+
+//customer cancel booking request 
+router.post('/removeRequest/:id/:bookingid',userController.allowIfLoggedin,bookingController.removeBookingRequest)
+module.exports = router;
