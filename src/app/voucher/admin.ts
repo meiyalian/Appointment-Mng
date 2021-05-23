@@ -3,8 +3,12 @@ import {DatabaseService} from "../database.service";
 export class Admin {
 
   public name:string;
-  public defaultDelivery:string[]=['delivery', 'pickup'];
-  public selectedDelivery:string;
+  public defaultDelivery: any[]=[
+    {option:"delivery", selected:false},
+    {option:"pickup", selected:false}
+  ];
+  public pickup=false;
+  public delivery=false;
   private dbService:DatabaseService
   public allServices: any[];
   public bookingRequests: any[];
@@ -17,7 +21,13 @@ export class Admin {
   }
 
   public addService(){
-    let request={name:this.name, deliveryOptions:this.selectedDelivery};
+    let selectedOption: string[] = [];
+    for (let i in this.defaultDelivery){
+      if (this.defaultDelivery[i]['selected']==true){
+        selectedOption.push(this.defaultDelivery[i]['option']);
+      }
+    }
+    let request={name:this.name, deliveryOptions:selectedOption};
     this.dbService.addService(request).subscribe(result => {
       console.log(result);
     });
