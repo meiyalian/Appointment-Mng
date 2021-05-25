@@ -1,6 +1,18 @@
-<div class="jumbotron text-center">
-    <h1>Voucher_Service</h1>
-  </div>
+<!DOCTYPE html>
+<script src="https://how2j.cn/study/js/jquery/2.0.0/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>
+<link href="https://how2j.cn/study/css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
+<script src="https://how2j.cn/study/js/bootstrap/3.3.6/bootstrap.min.js"></script>
+
+<body>
+<main class="form-signin">
+
+<div class="text-center">
+  <h1 style="font-size:45px;margin-bottom: 30px">Voucher Service</h1>
+</div>
+<!--<div class="jumbotron text-center">-->
+<!--    <h1>Voucher_Service</h1>-->
+<!--  </div>-->
 
 <nav class="navbar navbar-expand-sm bg-light" *ngIf="role=='basic'">
   <ul class="navbar-nav">
@@ -21,30 +33,30 @@
 
     <div class="form-group">
       <label>Service_Type</label>
-      <select [(ngModel)]="selectedService" (change)="setDeliveryOptions()">
+      <select class="form-control" [(ngModel)]="selectedService" (change)="setDeliveryOptions()">
         <option [ngValue]="item" *ngFor="let item of serviceTypes">{{item.name}}</option>
       </select>
     </div>
 
     <div class="form-group">
       <label>Deliver</label>
-      <select [(ngModel)]="selectedDeliver">
+      <select  class="form-control" [(ngModel)]="selectedDeliver">
         <option *ngFor="let item of deliverOptions">{{item}}</option>
       </select>
     </div>
 
     <div class="form-group">
       <label>Datetime</label>
-      <input type="date" [(ngModel)]="date">
-      <input type="time" [(ngModel)]="time">
+      <input type="date" [(ngModel)]="date"  class="form-control">
+      <input type="time" [(ngModel)]="time"  class="form-control">
     </div>
 
     <div class="form-group">
       <label>Optional Message</label>
-      <input type="text" [(ngModel)]="optionMessage">
+      <input type="text" [(ngModel)]="optionMessage" class="form-control">
     </div>
 
-    <button type="submit" class="btn btn-primary" (click)="book()">Book</button>
+    <button type="submit" class="w-100 btn btn-lg btn-primary center-block" (click)="book()">Book</button>
   </div>
 
   <div class="section" *ngIf="section==2">
@@ -59,7 +71,7 @@
         <td>{{item.serviceType}}</td>
         <td>{{item.date}}</td>
         <td>{{item.deliveryOption}}
-          <input type="button" value="cancel" (click)="cancelBooking(item._id)"> </td>
+          <input type="button" value="cancel" (click)="cancelBooking(item._id)" class="form-control"> </td>
       </tr>
     </table>
 
@@ -86,7 +98,7 @@
   <div class="section" *ngIf="section==1">
     <div class="form-group">
       <label>Service Name</label>
-      <input type="text" [(ngModel)]="admin.name">
+      <input type="text" [(ngModel)]="admin.name" class="form-control">
     </div>
 
     <div class="form-group">
@@ -94,21 +106,21 @@
 <!--      <select [(ngModel)]="admin.selectedDelivery">-->
 <!--        <option *ngFor="let item of admin.defaultDelivery">{{item}}</option>-->
 <!--      </select>-->
-      <div *ngFor="let item of admin.defaultDelivery">
+      <div *ngFor="let item of admin.defaultDelivery" class="form-control">
         <label>
           <input type="checkbox" [(ngModel)]="item.selected"> {{item.option}}
         </label>
       </div>
     </div>
 
-    <button type="submit" class="btn btn-primary" (click)="admin.addService()">Add</button>
+    <button type="submit" class="w-100 btn btn-primary center-block" (click)="admin.addService()">Add</button>
   </div>
 
   <div class="section" *ngIf="section==2">
 
     <table class="table table-striped">
       <tr>
-        <th>ServiceType</th>
+        <th >ServiceType</th>
         <th>Date</th>
         <th>DeliverOption</th>
         <th>OptionalMessage</th>
@@ -124,7 +136,7 @@
         <td>{{item.user.name}}</td>
         <td>{{item.user.phoneNumber}}</td>
         <td>{{item.user.email}}
-          <input type="button" value="accept" (click)="admin.acceptRequest(item._id)"></td>
+          <input class="btn btn-default btn-sm" type="button" value="accept" (click)="admin.acceptRequest(item._id)"></td>
       </tr>
     </table>
 
@@ -133,3 +145,5 @@
 
 </div>
 
+</main>
+</body>
