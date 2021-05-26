@@ -41,7 +41,7 @@
     <div class="form-group">
       <label>Deliver</label>
       <select  class="form-control" [(ngModel)]="selectedDeliver">
-        <option *ngFor="let item of deliverOptions">{{item}}</option>
+        <option *ngFor="let item of deliverOptions" value="{{item}}">{{item}}</option>
       </select>
     </div>
 

@@ -85,6 +85,8 @@ export class VoucherComponent implements OnInit {
       console.log(this.requestList);
       for (let i in this.requestList){
         this.requestList[i]['serviceType']=this.getServiceName(this.requestList[i]['serviceType']);
+        let localtime = new Date(this.requestList[i]['date']);
+        this.requestList[i]['date']=localtime.toLocaleString();
       }
     });
 
