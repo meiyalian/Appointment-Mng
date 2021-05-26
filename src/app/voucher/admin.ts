@@ -29,7 +29,11 @@ export class Admin {
     }
     let request={name:this.name, deliveryOptions:selectedOption};
     this.dbService.addService(request).subscribe(result => {
-      console.log(result);
+      if (result['ok']==true){
+        alert("Add Success");
+      }else {
+        alert("Error");
+      }
     });
   }
 
@@ -43,6 +47,8 @@ export class Admin {
   public setServicesName(){
     for (let i in this.bookingRequests){
       this.bookingRequests[i]['serviceType']=this.getServiceName(this.bookingRequests[i]['serviceType']);
+      let localtime = new Date(this.bookingRequests[i]['date']);
+      this.bookingRequests[i]['date']=localtime.toLocaleString();
     }
   }
 
@@ -62,7 +68,11 @@ export class Admin {
 
   acceptRequest(requestID){
     this.dbService.acceptRequest(requestID).subscribe(result => {
-      console.log(result)
+      if (result['ok']==true){
+        alert("Accept Success");
+      }else {
+        alert("Error");
+      }
       this.getRequests();
     })
   }

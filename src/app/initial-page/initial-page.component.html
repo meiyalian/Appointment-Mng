@@ -4,7 +4,6 @@
 <script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>
 <link href="https://how2j.cn/study/css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
 <script src="https://how2j.cn/study/js/bootstrap/3.3.6/bootstrap.min.js"></script>
-<router-outlet></router-outlet>
 
 <body>
 <div class="container col-xxl-8 px-4 py-5">
@@ -13,13 +12,13 @@
       <img src="assets/pika.jpg" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="480" height="480" loading="lazy" >
     </div>
     <div class="col-lg-6">
-      <h1 class="display-5 fw-bold lh-1 mb-3">Voucher Appointment System</h1>
+      <h1 class="display-5 fw-bold lh-1 mb-3 text-primary">Voucher Appointment System</h1>
       <p class="lead">Our system aims to assist you to experience a happy journey over voucher selection.</p>
       <div class="d-grid gap-2 d-md-flex justify-content-md-start">
 
 
         <div class="col-xs-3">
-          <button type="button" class="btn btn-primary btn-lg px-4 me-md-2" routerLink="/login">Sign in</button>
+          <button type="button" class="btn btn-primary btn-lg px-4 me-md-2" (click)="signInPage()">Sign in</button>
         </div>
 
         <div class="col-xs-3">
@@ -30,10 +29,8 @@
           <button type="button" class="btn btn-default btn-lg" routerLink="/login">Admin sign in</button>
         </div>
 
-
       </div>
     </div>
   </div>
 </div>
 </body>
-

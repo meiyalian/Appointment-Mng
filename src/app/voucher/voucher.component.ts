@@ -45,6 +45,9 @@ export class VoucherComponent implements OnInit {
 
   changeSection(sectionId) {
     if (this.role=="basic"){
+      if (sectionId==1){
+        this.getAllServices();
+      }
       if (sectionId==2){
         this.getBooking();
       }
@@ -68,7 +71,11 @@ export class VoucherComponent implements OnInit {
   book(){
     let request={serviceType:this.selectedService['_id'], date:this.date+" "+this.time, optionalMessage:this.optionMessage, deliveryOption:this.selectedDeliver};
     this.dbService.book(this.userID,request).subscribe(result => {
-      console.log(result);
+      if (result['ok']==true){
+        alert("Book Success");
+      }else {
+        alert("Book Error");
+      }
     })
   }
 
@@ -78,6 +85,8 @@ export class VoucherComponent implements OnInit {
       console.log(this.requestList);
       for (let i in this.requestList){
         this.requestList[i]['serviceType']=this.getServiceName(this.requestList[i]['serviceType']);
+        let localtime = new Date(this.requestList[i]['date']);
+        this.requestList[i]['date']=localtime.toLocaleString();
       }
     });
 
@@ -103,7 +112,11 @@ export class VoucherComponent implements OnInit {
 
   cancelBooking(requestID){
     this.dbService.cancelRequest(this.userID,requestID,this.ac).subscribe(result => {
-      console.log(result);
+      if (result['ok']==true){
+        alert("Cancel Success");
+      }else {
+        alert("Error");
+      }
       this.getBooking();
     })
   }

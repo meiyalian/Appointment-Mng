@@ -18,7 +18,7 @@ module.exports = {
         });
     },
 
-    //Customer can add booking request 
+    //Customer can add booking request
     addBookingRequest: function(req,res){
         User.findOne({_id:req.params.id}).exec (function(err,user){
             newDate = new Date(req.body.date)
@@ -54,26 +54,26 @@ module.exports = {
                           }
                           sendMail(message, info => {
                               console.log(`The mail has beed send`);
-                            
+
                             });
                             return res.json({ok: true,
                             data: newbooking,serviceinfo:serviceinfo})
                         })
-                        
-      
+
+
                     }
                 })
-              
+
             }
             })
         })
     },
 
-        //Customer remove booking request 
+        //Customer remove booking request
     removeBookingRequest: async function(req,res){
 
 
-        
+
         User.findOneAndUpdate({_id: req.params.id}, {$pull: {bookingRequest: req.params.bookingid}},  {
             new: true
             }).populate({path: 'bookingRequest', model: 'BookingRequest'}).exec(async (err, usr)=>{
@@ -97,11 +97,11 @@ module.exports = {
                       }
                       sendMail(message, info => {
                           console.log(`The mail has beed send`);
-                        
+
                         });
                     })
                     })
-                    
+
 
 
                     await BookingRequest.findOneAndRemove({ _id: req.params.bookingid }, (err, booking)=>{
@@ -111,27 +111,27 @@ module.exports = {
                         data: usr})
 
                     }
-        
+
                 })
 
-            
-               
+
+
     },
             // User.findOne({_id:req.params.id},function(err,user){
 
             //     requests = user.bookingRequest
             //     bookingid = req.params.bookingid
-                
+
             //     for(let i = 0; i < requests.length ; i ++ ){
             //         if (requests[i] == bookingid) requests.splice(i,1)
             //     }
 
 
-       
-            // })
-        
 
-    //admin view booking request 
+            // })
+
+
+    //admin view booking request
     adminViewBookingRequest: function (req,res){
         BookingRequest.find({'confirmation':false}).populate('user').exec (function(err,bookingRequest){
             if(err) return res.status(400).json({ok:false,err:err});
@@ -165,7 +165,7 @@ module.exports = {
                           }
                           sendMail(message, info => {
                               console.log(`The mail has beed send`);
-                            
+
                             });
                             return res.json({ok: true,
                             data: bookingRequest,serviceinfo:serviceinfo})
