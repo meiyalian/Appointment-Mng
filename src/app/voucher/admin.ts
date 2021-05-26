@@ -29,7 +29,11 @@ export class Admin {
     }
     let request={name:this.name, deliveryOptions:selectedOption};
     this.dbService.addService(request).subscribe(result => {
-      console.log(result);
+      if (result['ok']==true){
+        alert("Add Success");
+      }else {
+        alert("Error");
+      }
     });
   }
 
@@ -62,7 +66,11 @@ export class Admin {
 
   acceptRequest(requestID){
     this.dbService.acceptRequest(requestID).subscribe(result => {
-      console.log(result)
+      if (result['ok']==true){
+        alert("Accept Success");
+      }else {
+        alert("Error");
+      }
       this.getRequests();
     })
   }

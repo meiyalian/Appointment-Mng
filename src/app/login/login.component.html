@@ -6,9 +6,7 @@
 <script src="https://how2j.cn/study/js/bootstrap/3.3.6/bootstrap.min.js"></script>
 
 
-
 <body>
-<router-outlet></router-outlet>
 <main class="form-signin">
 
   <h1 style="font-size:25px" class="text-center text-success">LOGIN</h1>
@@ -17,13 +15,13 @@
   <div class="form-group" style="margin-bottom: 20px;">
     <!--      <label>Name</label>-->
     <label for="customerName">Email</label>
-    <input type="text" class="form-control" id="customerName" [(ngModel)]="email" name="cn" placeholder="Name">
+    <input type="text" class="form-control" id="customerName" [(ngModel)]="email" name="cn" placeholder="Email">
   </div>
 
   <div class="form-group" style="margin-bottom: 20px;">
     <!--      <label>Phone Number</label>-->
     <label for="customerPN">Password</label>
-    <input type="text" class="form-control" id="customerPN"  [(ngModel)]="password" name="pn" placeholder="Phone Number">
+    <input type="text" class="form-control" id="customerPN"  [(ngModel)]="password" name="pn" placeholder="Password">
   </div>
 
   <button class="w-100 btn btn-lg btn-primary center-block" type="submit" (click)="login()">Login</button>
