@@ -47,6 +47,8 @@ export class Admin {
   public setServicesName(){
     for (let i in this.bookingRequests){
       this.bookingRequests[i]['serviceType']=this.getServiceName(this.bookingRequests[i]['serviceType']);
+      let localtime = new Date(this.bookingRequests[i]['date']);
+      this.bookingRequests[i]['date']=localtime.toLocaleString();
     }
   }
 
