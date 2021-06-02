@@ -3,7 +3,7 @@
 
 ## Introduction 
 
-A web app that provides voucher booking service. 
+A web app using the MEAN stack that provides voucher booking services. 
 
 
 
